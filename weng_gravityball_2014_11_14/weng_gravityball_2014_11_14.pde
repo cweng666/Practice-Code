@@ -1,5 +1,5 @@
 float x, y, vx, vy, ax, ay;
-int dia;
+float dia,vdia,adia;
 
 void setup() {
   size(displayWidth, displayHeight);
@@ -11,6 +11,8 @@ void setup() {
   vy=1;
   ax=0;
   ay=2;
+  vdia=-1;
+  adia=1;
 }
 
 void draw() {
@@ -21,8 +23,13 @@ void draw() {
   vy+=ay;
   x+=vx;
   y+=vy;
+  adia+=vdia;
+  dia+=vdia;
   if(y+dia/2 > height) {
     y=height-dia/2;
     vy*=-1;
+  }
+  if(dia>100) {
+    vdia*=-1;
   }
 }
