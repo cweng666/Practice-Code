@@ -1,5 +1,5 @@
 String[] karensmoods = {
-  "happy", "derpy", "sad", "forlorn", "enamorada", "bored", "fatigued", "perturbed", "florid", "variegated", "petrified", "loopy", "silly"
+  "happy", "derpy", "sad", "forlorn", "enamorada", "bored", "fatigued", "perturbed", "florid", "variegated", "petrified", "loopy", "silly", "ecstatic", "sheepish"
 };
 int mood;
 float x, y;
@@ -28,7 +28,7 @@ void draw() {
     y=random(height);
     mood = int(random(karensmoods.length));
     println(mood);
-    fill(random(360), random(100), random(100), 50);
+    fill(random(360), random(100), random(50,100), 50);
     text(karensmoods[mood], x, y);
   } else {
     background(0);
