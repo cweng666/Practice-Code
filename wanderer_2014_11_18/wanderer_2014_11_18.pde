@@ -1,38 +1,34 @@
-float x,y,vx,vy,ax,ay,dia;
+PVector loc,v,a;
+float dia;
 
 void setup() {
   size(displayWidth,displayHeight);
   colorMode(HSB,360,100,100,100);
   dia=40;
-  x=width/2;
-  y=height/2;
-  vx=0;
-  vy=0;
-  ax=random(-0.5,0.5);
-  ay=random(-0.5,0.5);
+  loc=new PVector(width/2,height/2);
+  v = new PVector(0,0);
+  a = new PVector(random(-0.5,0.5),random(-0.5,0.5));
   background(0);
 }
 
 void draw() {
-  ax=random(-0.5,0.5);
-  ay=random(-0.5,0.5);
-  vx+=ax;
-  vy+=ay;
-  x+=vx;
-  y+=vy;
+  a.set(random(-0.5,0.5),random(-0.5,0.5));
+  v.add(a);
+  v.limit(10);
+  loc.add(v);
   noStroke();
-  fill(frameCount%360,100,100,map(x,0,width,0,50));
-  ellipse(x,y,dia,dia);
-  if(x+dia/2<0) {
-    x=width+dia/2;
+  fill(frameCount%360,100,100,map(loc.x,0,width,0,50));
+  ellipse(loc.x,loc.y,dia,dia);
+  if(loc.x+dia/2<0) {
+    loc.x=width+dia/2;
   }
-  if(x-dia/2>width) {
-    x=-dia/2;
+  if(loc.x-dia/2>width) {
+    loc.x=-dia/2;
   }
-  if(y+dia/2<0) {
-    y=height +dia/2;
+  if(loc.y+dia/2<0) {
+    loc.y=height +dia/2;
   }
-  if(y-dia/2>height) {
-    y=-dia/2;
+  if(loc.y-dia/2>height) {
+    loc.y=-dia/2;
   }
 }
