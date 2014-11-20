@@ -1,72 +1,56 @@
-PVector loc, v, a, loc2, v2, a2;
-float dia, dia2;
+int count = 100;
+PVector[] loc = new PVector[count];
+PVector[] v = new PVector[count];
+PVector[] a = new PVector[count];
+float [] dia = new float[count];
 
 void setup() {
   size(displayWidth, displayHeight);
   colorMode(HSB, 360, 100, 100, 100);
-  loc= new PVector(width/2, height/2);
-  v= new PVector (random(-2, 4), random(-4, 4));
-  a = new PVector(0, 0);
-  loc2= new PVector(width*0.8,height*0.8);
-  v2 = new PVector(random(-1,2),random(-1,1));
-  a2 = new PVector(0,0);
-  
-//  mouse = new PVector();
-  dia=40;
-  dia2=20;
-  noCursor();
+  for (int i = 0; i<count; i++) {
+    dia[i] = random(5, 60);
+    loc[i] = new PVector(random(dia[i], width - dia[i]), random(dia[i], height-dia[i]));
+    v[i] = new PVector(random(-2, 4), random(-4, 4));
+    a[i] = new PVector(0, 0);
+  }
 }
 
 void draw() {
   background(0);
-  v.add(a);
-  loc.add(v);
-  v2.add(a2);
-  loc2.add(v2);
-//  mouse.set(mouseX, mouseY);
+  for (int i = 0; i<count; i++) {
+    v[i].add(a[i]);
+    loc[i].add(v[i]);
 
-//  if (loc.dist(mouse) < dia/2) {
-//    fill(120, 100, 100, 100);
-//    if (loc.x < mouse.x) {
-//      v.x = -abs(v.x);
-//    } else {
-//      v.x = abs(v.x);
-//    }
-//    if (loc.y < mouse.y) {
-//      v.y = -abs(v.y);
-//    } else {
-//      v.y = abs(v.y);
-//    }
-//  } else {
-//    fill(200, 100, 100, 40);
-//  }
-
-if (loc.dist(loc2) < dia/2 + dia2/2) {
-    if (loc.x < loc2.x) {
-      v.x = -abs(v.x);
-      v2.x = abs(v2.x);
-    } else {
-      v.x = abs(v.x);
-      v2.x = -abs(v2.x);
+    for (int j = 0; j<count; j++) {
+      if (i!=j) {
+        if (loc[i].dist(loc[j]) < dia[i]/2 + dia[j]/2) {
+          if (loc[i].x < loc[j].x) {
+            v[i].x = -abs(v[i].x);
+            v[j].x = abs(v[j].x);
+          } else {
+            v[i].x = abs(v[i].x);
+            v[j].x = -abs(v[j].x);
+          }
+          if (loc[i].y < loc[j].y) {
+            v[i].y = -abs(v[i].y);
+            v[j].y = abs(v[j].y);
+          } else {
+            v[i].y = abs(v[i].y);
+            v[j].y = -abs(v[j].y);
+          }
+        }
+      }
     }
-    if (loc.y < loc2.y) {
-      v.y = -abs(v.y);
-      v2.y = abs(v2.y);
-    } else {
-      v.y = abs(v.y);
-      v2.y = -abs(v2.y);
+    
+    fill(map(v[i].x,-4,4,0,360),100,100,90);
+    ellipse(loc[i].x, loc[i].y, dia[i], dia[i]);
+
+    if (loc[i].x+dia[i]/2>width || loc[i].x-dia[i]/2<0) {
+      v[i].x*=-1;
+    }
+    if (loc[i].y+dia[i]/2>height || loc[i].y-dia[i]/2<0) {
+      v[i].y*=-1;
     }
   }
-
-  ellipse(loc.x, loc.y, dia, dia);
-
-  if (loc.x+dia/2>width || loc.x-dia/2<0) {
-    v.x*=-1;
-  }
-  if (loc.y+dia/2>height || loc.y-dia/2<0) {
-    v.y*=-1;
-  }
-
-  ellipse(loc2.x, loc2.y, 10, 10);
 }
 
