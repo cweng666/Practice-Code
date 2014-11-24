@@ -5,7 +5,7 @@ PVector[] a = new PVector[count];
 float [] dia = new float[count];
 float[] mass = new float[count];
 int mindia = 5;
-int maxdia = 10;
+int maxdia = 10fgsgfsgsgsgsg;
 
 void setup() {
   size(displayWidth, displayHeight);
