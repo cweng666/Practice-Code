@@ -1,14 +1,19 @@
-ball[] alpha = new ball[200];
+Ball[] alpha = new Ball[200];
 
 void setup() {
   noStroke();
   size(displayWidth, displayHeight);
   colorMode(HSB, 360, 100, 100, 100);
   for (int i = 0; i < alpha.length; i++) {
-    alpha[i] = new ball();
+    if (i%5 == 0) {
+      alpha[i] = new Ball(30);
+    } else if (i%31 == 0) {
+      alpha[i] = new Ball(50);
+    } else {
+      alpha[i] = new Ball();
+    }
   }
 }
-
 void draw() {
   background(0);
   for (int i = 0; i < alpha.length; i++) {
@@ -19,19 +24,35 @@ void draw() {
   }
 }
 
-class ball {
+class Ball {
   PVector loc, v, a;
   float dia;
+  float hue, sat, bright, trans;
 
-  ball() {
+  Ball() {
     dia=15;
     loc = new PVector(random(dia, width-dia), random(height/2));
     v = new PVector(0, 0);
     a = new PVector(0, .1);
+    hue = random(160, 260);
+    sat = 100;
+    bright = 100;
+    trans = 30;
+  }
+
+  Ball(float tempdia) {
+    dia = tempdia;
+    loc = new PVector(random(dia, width-dia), random(height/2));
+    v = new PVector(0, 0);
+    a = new PVector(0, .1);
+    hue = random(160, 260);
+    sat = 100;
+    bright = 100;
+    trans = 30;
   }
 
   void display() {
-    fill(200, 100, 100,map(loc.y, 0, height, 0, 100));
+    fill(hue, sat, bright, trans);
     ellipse(loc.x, loc.y, dia, dia);
   }
 
