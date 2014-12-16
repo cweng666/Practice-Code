@@ -3,12 +3,14 @@ Bouncer[] bouncers = new Bouncer[100];
 float[] mass = new float[count];
 int mindia = 5;
 int maxdia = 10;
+float dia[] = new float[count];
 
 void setup() {
   size(displayWidth, displayHeight);
   colorMode(HSB, 360, 100, 100, 100);
   for (int i = 0; i<count; i++) {
     bouncers[i] = new Bouncer(random(5, 50), random(.5, 10));
+    dia[i] = random(10, 20);
     mass[i] = map(dia[i], mindia, maxdia, 0.05, 2);
   }
 }
@@ -16,19 +18,21 @@ void setup() {
 void draw() {
   background(0);
   for (int i = 0; i<count; i++) {
-bouncers[i].display();
+    bouncers[i].display();
     bouncers[i].move();
-    bouncers[i].wallBounce();
     for (int j = 0; j<count; j++) {
       if (i!=j) {
         bouncers[i].collideWith(bouncers[j]);
       }
     }
-  
-  class Bouncer {
+  }
+}
+
+class Bouncer {
   PVector loc, v;
   float dia;
   float speed;
+  float sz;
 
   Bouncer(float tempdia, float tempspeed) {
     dia = tempdia;
@@ -37,9 +41,9 @@ bouncers[i].display();
     speed = tempspeed;
     v.mult(speed);
   }
-  
+
   void display() {
-    fill(map(v[i].x,-4,4,0,360),100,100,90);
+    fill(map(v[i].x, -4, 4, 0, 360), 100, 100, 90);
     ellipse(loc[i].x, loc[i].y, dia[i], dia[i]);
   }
   void move() {
@@ -59,5 +63,7 @@ bouncers[i].display();
       v = PVector.sub(loc, someOtherBall.loc);
       v.normalize();
       v.setMag(speed);
-    }}}
+    }
+  }
+}
 
