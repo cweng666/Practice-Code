@@ -7,15 +7,16 @@ void setup() {
 }
 
 void draw() {
+  background(0);
   dandelion.add(new Seed());
-  for (int i = dandelion.size ()-1; i >= 0; i--) {
+  for (int i = dandelion.size() - 1; i >= 0; i--) {
     Seed currentSeed = dandelion.get(i);
     currentSeed.display();
     if(mousePressed) {
       currentSeed.move();
     }
-    if (currentParticle.isDead()) {
-      allMyParticles.remove(i);
+    if (currentSeed.isDead()) {
+      dandelion.remove(i);
     }
   }
   
@@ -24,9 +25,9 @@ void draw() {
 class Seed {
   PVector loc, vel, acc;
   float dia;
+  float rx, ry;
 
   Seed() {
-    float rx, ry;
     rx = randomGaussian();
     ry = randomGaussian();
     rx = rx*30 + width/2;
@@ -34,17 +35,25 @@ class Seed {
 
     loc = new PVector (rx, ry);
     vel = new PVector(random(-5, -2), random(-3, 3));
-    acc = new PVector(0, 0.1);
+    acc = new PVector(0.1, 0);
     dia = 10;
   }
 
   void display() {
-    ellipse(rx, ry, dia, dia);
+    ellipse(loc.x,loc.y, dia, dia);
   }
 
   void move() {
-    vel.add = (acc);
-    loc.add = (vel);
+    vel.add(acc);
+    loc.add(vel);
+  }
+  
+  boolean isDead() {
+    if (loc.x -dia/2 < 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 
