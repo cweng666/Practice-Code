@@ -1,18 +1,17 @@
 ArrayList <Seed> dandelion = new ArrayList <Seed>();
-PImage seed;
+PImage seed, girl;
 
 void setup() {
-  size(displayWidth, displayHeight);
+  girl = loadImage("girl with dandelion.png");
+  size(girl.width, girl.height);
   noStroke();
 }
 
 void draw() {
   background(0);
+  image(girl, 0, 0);
   
-  //draw stem
-  line(width/2, height/2-150, width/2+200,height);
-  
-  //initialize image
+  //initialize images
   seed = loadImage("dandelion seed.png");
   
   //add in new seeds
@@ -54,8 +53,8 @@ class Seed {
     //generate seeds in a circle in middle
     rx = randomGaussian();
     ry = randomGaussian();
-    rx = rx*40 + width/2;
-    ry = ry*40 + height/2-150;
+    rx = rx*20 + width/2-30;
+    ry = ry*20 + height/2+70;
 
     loc = new PVector (rx, ry);
     vel = new PVector(random(0, -2), random(-3, 3));
